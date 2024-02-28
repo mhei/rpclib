@@ -121,6 +121,9 @@ public:
     //! \brief Returns the current connection state.
     connection_state get_connection_state() const;
 
+    //! \brief Returns the local address of the connected socket.
+    std::string get_local_endpoint_address() const;
+
     //! \brief Waits for the completion of all ongoing calls.
     void wait_all_responses();
 

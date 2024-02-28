@@ -128,6 +128,12 @@ struct client::impl {
 
     client::connection_state get_connection_state() const { return state_; }
 
+    std::string get_local_endpoint_address() const {
+        std::ostringstream s;
+        s << writer_->socket().local_endpoint().address();
+        return s.str();
+    }
+
     //! \brief Waits for the write queue and writes any buffers to the network
     //! connection. Should be executed through strand_.
     void write(RPCLIB_MSGPACK::sbuffer item) {
@@ -218,6 +224,10 @@ void client::post(RPCLIB_MSGPACK::sbuffer *buffer) {
 
 client::connection_state client::get_connection_state() const {
     return pimpl->get_connection_state();
+}
+
+std::string client::get_local_endpoint_address() const {
+    return pimpl->get_local_endpoint_address();
 }
 
 nonstd::optional<int64_t> client::get_timeout() const {
